@@ -1,0 +1,36 @@
+.navbar-icon {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 0px 15px;
+}
+.logo {
+    left: 0;
+}
+.logo-icon {
+    height: 100%;
+    direction: ltr;
+    display: flex;
+}
+.logo a {
+    display: inline-flex;
+    align-items: start;
+    cursor: pointer;
+    min-width: 235px;
+    text-decoration: none;
+    color: #262626;
+}
+.logo svg {
+    width: 20px;
+    height: 28px;
+    margin: 0px;
+}
+.logo-text {
+    font-weight: 600;
+    white-space: nowrap;
+    margin: -3px 0 0 4px;
+}
+.logo .logo-text-hover {
+    display: none;
+}

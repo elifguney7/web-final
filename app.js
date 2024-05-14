@@ -9,6 +9,8 @@ const middleware = require('i18next-express-middleware');
 
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
+app.use(express.static('public')); 
+
 
 i18next
   .use(FsBackend)

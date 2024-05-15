@@ -6,11 +6,28 @@ const PORT = 8080;
 const i18next = require('i18next');
 const FsBackend = require('i18next-fs-backend');
 const middleware = require('i18next-express-middleware');
+const mysql = require('mysql');
+
 
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 app.use(express.static('public')); 
 
+const connection = mysql.createConnection({
+  host: 'elifguneymsndb.mysql.database.azure.com',
+  user: 'elifguney',
+  password: 'Test1234',
+  database: 'final_project'
+});
+
+// Event: Connection Established
+connection.connect((err) => {
+  if (err) {
+      console.error('Error connecting to MySQL database:', err);
+      return;
+  }
+  console.log('Connected to MySQL database');
+});
 
 i18next
   .use(FsBackend)

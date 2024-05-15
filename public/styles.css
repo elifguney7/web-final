@@ -1,19 +1,20 @@
-.navbar-icon {
+body {
+    background-color: #f4f4f2;;
+}
+.navbar {
     align-items: center;
     display: flex;
     justify-content: center;
     position: relative;
-    padding: 0px 15px;
-}
-.logo {
-    left: 0;
+    padding: 3% 10%;
 }
 .logo-icon {
     height: 100%;
     direction: ltr;
     display: flex;
+    align-items: center;
 }
-.logo a {
+.logo-icon a {
     display: inline-flex;
     align-items: start;
     cursor: pointer;
@@ -21,7 +22,7 @@
     text-decoration: none;
     color: #262626;
 }
-.logo svg {
+.logo-icon svg {
     width: 20px;
     height: 28px;
     margin: 0px;
@@ -30,7 +31,83 @@
     font-weight: 600;
     white-space: nowrap;
     margin: -3px 0 0 4px;
+    font-size: 1.5rem;
 }
-.logo .logo-text-hover {
+.logo-icon .logo-text-hover {
+    display: none;
+}
+.logo-icon:hover .logo-text-default {
+    display: none;
+}
+.logo-icon:hover .logo-text-hover {
+    display: block;
+    color: rgb(51 147 223);
+}
+.signup svg {
+    width: 36px; /* or other appropriate size */
+    height: 36px;
+  }
+.searchbar-container {
+    min-width: 400px;
+}
+.searchbar {
+    display: flex;
+}
+.searchbar button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: 10px;
+    width: 70px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    background-color: rgb(51 147 223);
+}
+.searchbar-container input{
+    outline: none;
+    border: none;
+    margin-left: 0.5rem;
+    font-size: 12px;
+    background-color: white;
+    width: 100%;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+.notification-bell-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.bell-icon {
+    fill: #707070; /* Color of the bell icon */
+}
+
+.notification-count {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+
+/* Hide the dropdown arrow added by Bootstrap */
+.nav-item.dropdown .nav-link::after {
     display: none;
 }

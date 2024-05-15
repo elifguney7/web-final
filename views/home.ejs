@@ -4,39 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MSN</title>
-    <link href="/styles.css" rel="stylesheet">  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="/styles.css" rel="stylesheet"> 
 </head>
 <body>
-    <header class="navbar">
-        
-        <div class="navbar-icon">
-          <a href="/">
-            <div class="logo">
-                <a href="/">
-                <div class="logo-icon">
-                    <svg fill="currentColor" viewBox="0 0 124.66 168.19" xmlns="http://www.w3.org/2000/svg">
-                        <title>msn_logo</title>
-                        <g id="Layer_2" data-name="Layer 2">
-                            <g id="Layer_1-2" data-name="Layer 1">
-                                <path d="M82,91.65c4.37-9.67,9-19.47,15.26-28.08a62.89,62.89,0,0,1,10.59-11.63c3.19-2.64,8.68-6.68,13-4.53s3.93,9,3.35,13a60,60,0,0,1-4.45,14.85c-5.44,12.75-14,24.19-22.79,34.8-1.61,1.94-3.24,3.87-4.93,5.76a91.06,91.06,0,0,1-1,9.88,60.69,60.69,0,0,1-12.4,29c-2.8,3.44-7.74,8.81-12.77,7.81-5.31-1.06-5.32-8.77-5-12.87a57.14,57.14,0,0,1,3.78-15.39C72,115.8,79.9,96.68,82,91.65"></path><path d="M71,105.76c-5.37,18.4-16.84,44.69-33.28,55.66-7.45,5-17.46,8.8-26.36,5.6C1.47,163.53-1.09,152.5.38,143.16,2,132.72,7.75,123.65,14.49,115.75a54.18,54.18,0,0,1,12.67-10.13c7.47,4.14,16.59,8.72,24.27,11.15A99.3,99.3,0,0,1,34,102.35c-5.72-6.66-14.92-19.81-17.78-30.09-2.93-10.55-5.37-21.58-5.08-32.58.27-10,2.75-20.5,8.77-28.68C26.14,2.62,36.09-2,46.41.86,56.2,3.59,63.73,11.6,68.72,20.13a68.58,68.58,0,0,1,8.86,29.44A154.72,154.72,0,0,1,71,105.76Z"></path>
-                            </g>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <!-- Logo on the left -->
+          <a class="navbar-brand" href="/">
+            <div class="logo-icon">
+                <svg fill="currentColor" viewBox="0 0 124.66 168.19" xmlns="http://www.w3.org/2000/svg">
+                    <title>msn_logo</title>
+                    <g id="Layer_2" data-name="Layer 2">
+                        <g id="Layer_1-2" data-name="Layer 1">
+                            <path d="M82,91.65c4.37-9.67,9-19.47,15.26-28.08a62.89,62.89,0,0,1,10.59-11.63c3.19-2.64,8.68-6.68,13-4.53s3.93,9,3.35,13a60,60,0,0,1-4.45,14.85c-5.44,12.75-14,24.19-22.79,34.8-1.61,1.94-3.24,3.87-4.93,5.76a91.06,91.06,0,0,1-1,9.88,60.69,60.69,0,0,1-12.4,29c-2.8,3.44-7.74,8.81-12.77,7.81-5.31-1.06-5.32-8.77-5-12.87a57.14,57.14,0,0,1,3.78-15.39C72,115.8,79.9,96.68,82,91.65"></path><path d="M71,105.76c-5.37,18.4-16.84,44.69-33.28,55.66-7.45,5-17.46,8.8-26.36,5.6C1.47,163.53-1.09,152.5.38,143.16,2,132.72,7.75,123.65,14.49,115.75a54.18,54.18,0,0,1,12.67-10.13c7.47,4.14,16.59,8.72,24.27,11.15A99.3,99.3,0,0,1,34,102.35c-5.72-6.66-14.92-19.81-17.78-30.09-2.93-10.55-5.37-21.58-5.08-32.58.27-10,2.75-20.5,8.77-28.68C26.14,2.62,36.09-2,46.41.86,56.2,3.59,63.73,11.6,68.72,20.13a68.58,68.58,0,0,1,8.86,29.44A154.72,154.72,0,0,1,71,105.76Z"></path>
                         </g>
-                    </svg>
-                    <h1 class="logo-text logo-text-default">msn</h1><span class="logo-text logo-text-hover">sayfayı yenile</span>
-                </div>          
-            </a>
-            </div>
-            
-          <div class="navbar-secondLine">
-              <form action="/search" method="GET">
+                    </g>
+                </svg>
+                <h1 class="logo-text logo-text-default">msn</h1><h1 class="logo-text logo-text-hover">sayfayı yenile</h1>
+            </div> 
+          </a>
+      
+          <!-- Toggler Button for Mobile Views -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      
+          <!-- Navbar content -->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <!-- Search bar in the middle -->
+
+            <form class="searchbar-container d-flex mx-auto" action="/search" method="GET">
+                <input type="text" name="q" placeholder="Ürün ara">
                 <div class="searchbar">
                     <button type="submit" class="search">
-                        <svg height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false"><path d="M11 2a9 9 0 0 1 6.866 14.82l-.159.18 4.243 4.243-.707.707L17 17.708A9 9 0 1 1 11 2zm0 1a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"></path></svg>
-                    </button>
-                    <input type="text" name="q" placeholder="Ürün ara">
+                        <svg height="20px" fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false"><path d="M11 2a9 9 0 0 1 6.866 14.82l-.159.18 4.243 4.243-.707.707L17 17.708A9 9 0 1 1 11 2zm0 1a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"></path></svg>
+                    </button>                    
                 </div>
-            </form>          
+            </form>   
+
+            <!-- Buttons on the right -->
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item ">
+                <a class="btn btn-link nav-link signup" role="button" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+                      <g stroke="#707070" stroke-width="1.9" fill="none">
+                        <circle cx="32" cy="32" r="30.25"/>
+                        <g transform="translate(8.8 5.61) scale(1.1)">
+                          <circle cx="20" cy="16" r="7"/>
+                          <path d="M30 35h10m-5-5v10M30.833 32.09A11 11 0 009 34"/>
+                        </g>
+                      </g>
+                    </svg>
+                  </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a id="navbarDropdownMenuLink" class="notification-bell-container nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg class="bell-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
+                        <path d="M14 3a8.5 8.5 0 018.5 8.25v4.86l1.41 3.65c.04.1.07.2.08.3l.01.16c0 .66-.5 1.2-1.15 1.27l-.13.01H17.5a3.5 3.5 0 01-7 .2v-.2H5.27a1.28 1.28 0 01-1.23-1.62l.04-.12L5.5 16.1v-4.6C5.5 6.8 9.3 3 14 3zm2 18.65v-.15h-4a2 2 0 004 .15zM14 4.5a7 7 0 00-7 6.76v4.99c0 .07 0 .13-.02.19l-.03.09L5.6 20h16.8l-1.35-3.48a.75.75 0 01-.04-.17V11.5a7 7 0 00-7.01-7z"></path>
+                    </svg>
+                    <span class="notification-count">3</span>
+                </a>   
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Notification 1</a>
+                    <a class="dropdown-item" href="#">Notification 2</a>
+                    <a class="dropdown-item" href="#">Notification 3</a>
+                </div>                                 
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <svg width="16" height="16" viewBox="0 0 16 16"><path d="M13.93 8.94a.25.25 0 0 0 .15.22l1.67.7c.07.03.13.07.17.13a.37.37 0 0 1 .06.21.68.68 0 0 1-.04.18 3.86 3.86 0 0 1-.11.32l-.16.36a11.13 11.13 0 0 1-.3.71l-.09.2a.33.33 0 0 1-.14.18.36.36 0 0 1-.2.06c-.1 0-.23-.04-.42-.12a23.5 23.5 0 0 1-.56-.25l-.55-.26c-.18-.08-.3-.12-.39-.12a.24.24 0 0 0-.2.1 9.67 9.67 0 0 1-.59.68 5.76 5.76 0 0 1-.67.59.34.34 0 0 0-.08.1.2.2 0 0 0-.03.1c0 .09.04.21.12.38a35.14 35.14 0 0 0 .52 1.12c.07.18.11.31.11.4a.34.34 0 0 1-.07.22.38.38 0 0 1-.17.14 7.75 7.75 0 0 0-.36.16 32.49 32.49 0 0 1-.55.24 17.56 17.56 0 0 1-.86.3.4.4 0 0 1-.2-.06.34.34 0 0 1-.14-.17l-.7-1.68a.25.25 0 0 0-.09-.1.23.23 0 0 0-.14-.05H8.9l-.44.05a6.26 6.26 0 0 1-.44.02 4.58 4.58 0 0 1-.46-.02l-.45-.05h-.04a.25.25 0 0 0-.23.15l-.69 1.67a.34.34 0 0 1-.13.17.37.37 0 0 1-.21.06.8.8 0 0 1-.18-.04 9.9 9.9 0 0 1-.32-.11 50.63 50.63 0 0 0-.36-.15 16.3 16.3 0 0 0-.71-.3 5.45 5.45 0 0 1-.2-.1.34.34 0 0 1-.18-.13.4.4 0 0 1-.06-.21c0-.1.04-.23.11-.4.08-.2.17-.38.26-.57l.26-.56c.08-.17.12-.3.12-.39a.24.24 0 0 0-.1-.2 9.68 9.68 0 0 1-.68-.59 5.76 5.76 0 0 1-.59-.67c-.06-.07-.12-.1-.2-.1-.09 0-.21.03-.39.11a35.14 35.14 0 0 0-1.11.52c-.18.07-.32.11-.4.11a.37.37 0 0 1-.22-.06.43.43 0 0 1-.14-.18 7.79 7.79 0 0 0-.16-.36 32.55 32.55 0 0 1-.24-.54 36.12 36.12 0 0 1-.2-.54c-.07-.16-.1-.27-.1-.32 0-.08.02-.14.06-.2a.33.33 0 0 1 .17-.15l1.68-.7a.25.25 0 0 0 .1-.09.23.23 0 0 0 .05-.14V8.9L2 8.45A6.25 6.25 0 0 1 2 8.01a4.4 4.4 0 0 1 .02-.46l.05-.45v-.04a.25.25 0 0 0-.15-.22l-1.67-.7a.34.34 0 0 1-.17-.13.37.37 0 0 1-.06-.21c0-.04 0-.1.04-.18a53.8 53.8 0 0 1 .26-.68 93.7 93.7 0 0 0 .4-.92.34.34 0 0 1 .13-.17.4.4 0 0 1 .21-.06c.1 0 .23.04.4.12.2.07.38.16.57.25l.56.26c.17.08.3.12.39.12a.24.24 0 0 0 .2-.1 8.08 8.08 0 0 1 1.26-1.27.24.24 0 0 0 .1-.2c0-.09-.03-.21-.11-.38a23.24 23.24 0 0 0-.26-.55l-.26-.56a1.18 1.18 0 0 1-.11-.42c0-.08.02-.15.06-.2A.43.43 0 0 1 4.04.7 7.67 7.67 0 0 0 4.4.55 14.18 14.18 0 0 1 5.8.01c.08 0 .15.02.2.06a.33.33 0 0 1 .15.17l.7 1.68a.31.31 0 0 0 .09.11.26.26 0 0 0 .14.04h.03a6.23 6.23 0 0 1 .44-.05 4.18 4.18 0 0 1 .9 0l.45.05h.04a.25.25 0 0 0 .22-.15l.7-1.67a.34.34 0 0 1 .13-.17.37.37 0 0 1 .21-.06 3.61 3.61 0 0 1 .48.16c.13.04.25.1.38.15a13.75 13.75 0 0 1 .7.3l.22.09c.07.02.13.07.17.14.04.06.06.13.06.2 0 .1-.04.23-.11.42a22.03 22.03 0 0 1-.52 1.11c-.08.18-.12.3-.12.39 0 .08.04.15.1.2a8.08 8.08 0 0 1 1.27 1.26.24.24 0 0 0 .2.1c.09 0 .21-.03.39-.11a22.1 22.1 0 0 0 1.1-.52c.19-.07.32-.11.42-.11.08 0 .15.02.2.07.07.04.12.1.15.17l.16.36a14.18 14.18 0 0 1 .54 1.4c0 .08-.02.15-.06.22a.34.34 0 0 1-.17.13l-1.68.7a.31.31 0 0 0-.11.09.26.26 0 0 0-.04.14v.03l.05.44a4.18 4.18 0 0 1 0 .9l-.05.45v.04ZM8 12c.55 0 1.07-.1 1.55-.31a4.04 4.04 0 0 0 2.14-2.14A3.9 3.9 0 0 0 12 8c0-.55-.1-1.07-.32-1.55a3.92 3.92 0 0 0-.86-1.28A3.95 3.95 0 0 0 8 4a3.83 3.83 0 0 0-1.56.32A4.01 4.01 0 0 0 4.3 6.45 3.9 3.9 0 0 0 4 8a3.9 3.9 0 0 0 1.17 2.84c.37.36.8.64 1.27.85A3.9 3.9 0 0 0 8 12Z" fill-opacity=".83"></path></svg>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              
+            </ul>
           </div>
-      </header>
+        </div>
+      </nav>
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

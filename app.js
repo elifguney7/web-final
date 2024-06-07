@@ -1,5 +1,6 @@
 const express = require('express'); 
 var bodyParser = require('body-parser');
+const fs = require('fs');
 
 const app = express(); 
 const PORT = 8080;
@@ -20,7 +21,11 @@ const connection = mysql.createConnection({
   host: 'elifguneymsndb.mysql.database.azure.com',
   user: 'elifguney',
   password: 'Test1234',
-  database: 'final_project'
+  database: 'final_project',
+  ssl: {
+    ca: fs.readFileSync(__dirname + '/certs/DigiCertGlobalRootG2.crt.pem'),
+        rejectUnauthorized: false
+  }
 });
 
 // Event: Connection Established
@@ -66,14 +71,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   const query = 'SELECT title FROM news';
- connection.query(query, (err, results) => {
-   if (err) {
-     console.error('Error fetching news data:', err);
-     return res.status(500).send('Server error');
-   }
-   res.render('home', { news: results, i18n: res.locals });
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching news data:', err);
+      return res.status(500).send('Server error');
+    }
+    res.render('home', { news: results, i18n: res.locals });
 
- });
+  });
 });
 
 

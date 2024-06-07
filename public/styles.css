@@ -4,7 +4,6 @@ body {
 main {
     padding-right: 10%;
     padding-left: 10%;
-    
 }
 .navbar {
     align-items: center;
@@ -130,4 +129,44 @@ main {
 .weather {
     display: flex;
     flex-direction: row;
+}
+.newsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.carousel {
+    min-width: 65%;
+    max-width: 65%;
+}
+.carousel-inner {
+    border-radius: 1%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.smallerNews {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.smallerNewItems {
+    position: relative;
+    max-width: 90%;
+
+}
+.smallerNewItems img {
+    width: 100%;
+    height: auto;
+    border-radius: 1%;
+
+}
+.Title {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
 }

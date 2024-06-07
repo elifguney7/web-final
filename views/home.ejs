@@ -103,6 +103,7 @@
             <a href="#"><%= i18n.t('categories.TRAVEL') %></a>
         </div>
 
+        <div class="newsContainer">
             <div id="newsCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <% news.forEach((item, index) => { %>
@@ -123,7 +124,21 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-
+            <div class="smallerNews">
+                <div class="smallerNewItems">
+                    <img src="<%= news[0].images %>" class="d-block w-100" alt="<%= news[0].title %>">
+                    <div class="Title">
+                        <h5><%= news[0].title %></h5>
+                    </div>
+                </div>
+                <div class="smallerNewItems">
+                    <img src="<%= news[1].images %>" class="d-block w-100" alt="<%= news[1].title %>">
+                    <div class="Title">
+                        <h5><%= news[1].title %></h5>
+                    </div>
+                </div>                
+            </div>
+        </div>
            
 
     </main>

@@ -4,5 +4,9 @@
       "GAMING": "Gaming",
       "FINANCE": "Finance",
       "BUSINESS": "Business"
+  },
+  "changeLanguage": {
+    "LANG": "Change Language"
   }
+
 }

@@ -4,5 +4,8 @@
         "GAMING": "Oyun",
         "FINANCE": "Finans",
         "BUSINESS": "İş Dünyası"
+    },
+    "changeLanguage": {
+      "LANG": "Dil Değiştir"
     }
   }

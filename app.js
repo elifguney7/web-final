@@ -60,23 +60,22 @@ app.use(i18nextMiddleware.handle(i18next));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 // Define routes
+// app.get('/', (req, res) => {
+//     res.render('home', { i18n: res.locals });
+// });
+
 app.get('/', (req, res) => {
-    res.render('home', { i18n: res.locals });
+  const query = 'SELECT title FROM news';
+ connection.query(query, (err, results) => {
+   if (err) {
+     console.error('Error fetching news data:', err);
+     return res.status(500).send('Server error');
+   }
+   res.render('home', { news: results, i18n: res.locals });
+
+ });
 });
 
-
-// // Change language route
-// app.post('/change-lang', (req, res) => {
-//   const lang = req.body.lang;
-//   // Set the selected language as the new language
-//   i18next.changeLanguage(lang, (err, t) => {
-//       if (err) return console.log('something went wrong loading', err);
-//       // Set a cookie or session to remember the selected language
-//       res.cookie('i18next', lang);
-//       // Redirect back to the previous page or homepage
-//       res.redirect('back');
-//   });
-// });
 
 // Change language route
 app.post('/change-lang', (req, res) => {

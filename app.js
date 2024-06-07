@@ -1,4 +1,5 @@
 const express = require('express'); 
+var bodyParser = require('body-parser');
 
 const app = express(); 
 const PORT = 8080;
@@ -29,6 +30,7 @@ connection.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
+
 i18next
   .use(FsBackend)
   .init({
@@ -37,31 +39,38 @@ i18next
     supportedLngs: ['en', 'tr'], // Languages you want to support
     backend: {
       loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json'
-    }
+    },
+    debug: true // Enable debug mode for i18next
   });
-  console.log(__dirname); // Should output something like 'C:\Users\elifg\OneDrive\Masaüstü\web-final'
-
+  i18next.on('loaded', (loaded) => {
+    console.log('Load path:', i18next.options.backend.loadPath);
+  });
 // Use i18next middleware
 app.use(middleware.handle(i18next));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }));
 // Define routes
 app.get('/', (req, res) => {
     res.render('home', { i18n: res.locals });
 });
 
+
 // Change language route
 app.post('/change-lang', (req, res) => {
-    res.cookie('i18next', req.body.lang);
-    res.redirect('back');
+  const lang = req.body.lang;
+  // Set the selected language as the new language
+  i18next.changeLanguage(lang, (err, t) => {
+      if (err) return console.log('something went wrong loading', err);
+      // Set a cookie or session to remember the selected language
+      res.cookie('i18next', lang);
+      // Redirect back to the previous page or homepage
+      res.redirect('back');
+  });
 });
 
-// app.get('/', (req, res)=>{ 
-// 	res.status(200); 
-// 	res.send("Welcome to root URL of Server"); 
-// }); 
 
 app.listen(PORT, (error) =>{ 
 	if(!error) 

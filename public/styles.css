@@ -48,7 +48,9 @@ body {
     height: 36px;
   }
 .searchbar-container {
-    min-width: 400px;
+    min-width: 650px;
+    min-height: 45px;
+    box-shadow: inset;
 }
 .searchbar {
     display: flex;

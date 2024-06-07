@@ -1,6 +1,10 @@
 body {
     background-color: #f4f4f2;;
 }
+main {
+    padding-right: 10%;
+    padding-left: 10%;
+}
 .navbar {
     align-items: center;
     display: flex;
@@ -112,4 +116,17 @@ body {
 /* Hide the dropdown arrow added by Bootstrap */
 .nav-item.dropdown .nav-link::after {
     display: none;
+}
+.categories{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.categories a {
+    color: #262626;
+    text-decoration: none;
+}
+.weather {
+    display: flex;
+    flex-direction: row;
 }

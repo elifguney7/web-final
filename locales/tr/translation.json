@@ -3,7 +3,10 @@
         "SPORT": "Spor",
         "GAMING": "Oyun",
         "FINANCE": "Finans",
-        "BUSINESS": "İş Dünyası"
+        "BUSINESS": "İş Dünyası",
+        "ENTERTAINMENT":"Eğlence",
+        "SHOPPING":"Alışveriş",
+        "TRAVEL":"Seyehat"
     },
     "changeLanguage": {
       "LANG": "Dil Değiştir"

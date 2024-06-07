@@ -10,6 +10,8 @@ const FsBackend = require('i18next-fs-backend');
 const i18nextMiddleware = require('i18next-http-middleware');
 const cookieParser = require('cookie-parser'); // Add cookie-parser
 const mysql = require('mysql');
+const axios = require('axios'); // Add axios for HTTP requests
+
 
 
 // Set EJS as the templating engine
@@ -54,29 +56,39 @@ i18next
       caches: ['cookie']
     }
   });
-  // i18next.on('loaded', (loaded) => {
-  //   console.log('Load path:', i18next.options.backend.loadPath);
-  // });
+
+  const API_KEY = '5763ac4a4fe14caaa64172029240706';
+
+  // Fetch weather data
+  const getWeatherData = async (city) => {
+    try {
+      const response = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=no`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+      return null;
+    }
+  };
+  
 
 // Use i18next middleware
 app.use(i18nextMiddleware.handle(i18next));
-
-
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
-// Define routes
-// app.get('/', (req, res) => {
-//     res.render('home', { i18n: res.locals });
-// });
+
 
 app.get('/', (req, res) => {
-  const query = 'SELECT title FROM news';
-  connection.query(query, (err, results) => {
+  const query = 'SELECT title, explanation, images FROM news';
+  connection.query(query, async (err, results) => {
     if (err) {
       console.error('Error fetching news data:', err);
       return res.status(500).send('Server error');
     }
-    res.render('home', { news: results, i18n: res.locals });
+
+  // Fetch weather data for a specific city
+  const weatherData = await getWeatherData('Izmir');
+
+  res.render('home', { news: results, weather:weatherData,  i18n: res.locals });
 
   });
 });
@@ -89,6 +101,7 @@ app.post('/change-lang', (req, res) => {
   res.cookie('i18next', lang); // Set the cookie for language
   res.sendStatus(200); // Respond with success
 });
+
 
 
 app.listen(PORT, (error) =>{ 

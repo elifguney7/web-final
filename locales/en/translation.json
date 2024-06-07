@@ -3,7 +3,10 @@
       "SPORT": "Sport",
       "GAMING": "Gaming",
       "FINANCE": "Finance",
-      "BUSINESS": "Business"
+      "BUSINESS": "Business",
+      "ENTERTAINMENT":"Entertainment",
+      "SHOPPING":"Shopping",
+      "TRAVEL":"Travel"
   },
   "changeLanguage": {
     "LANG": "Change Language"

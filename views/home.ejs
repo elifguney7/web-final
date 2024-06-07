@@ -90,17 +90,47 @@
     </header>  
     <main>
         <div class="categories">
-            <ul>
-                <li><a href="#"><%= i18n.t('categories.SPORT') %></a></li>
-                <li><a href="#"><%= i18n.t('categories.GAMING') %></a></li>
-                <li><a href="#"><%= i18n.t('categories.FINANCE') %></a></li>
-                <li><a href="#"><%= i18n.t('categories.BUSINESS') %></a></li>
-            </ul>
+            <div class="weather">
+                <p><%= weather.location.name %> / </p>
+                <p><%= weather.current.temp_c %> <span>&#8451;</span></p>
+            </div>
+            <a href="#"><%= i18n.t('categories.SPORT') %></a>
+            <a href="#"><%= i18n.t('categories.GAMING') %></a>
+            <a href="#"><%= i18n.t('categories.FINANCE') %></a>
+            <a href="#"><%= i18n.t('categories.BUSINESS') %></a>
+            <a href="#"><%= i18n.t('categories.ENTERTAINMENT') %></a>
+            <a href="#"><%= i18n.t('categories.SHOPPING') %></a>
+            <a href="#"><%= i18n.t('categories.TRAVEL') %></a>
         </div>
+
+            <div id="newsCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <% news.forEach((item, index) => { %>
+                        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                            <img src="<%= item.images %>" class="d-block w-100" alt="<%= item.title %>">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><%= item.title %></h5>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+                <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+           
+
     </main>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      
       <script>
         function changeLanguage(lang) {
             fetch('/change-lang', {

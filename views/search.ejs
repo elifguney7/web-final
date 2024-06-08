@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="/styles.css" rel="stylesheet"> 
+</head>
+<body>
+    <header>
+
+    </header>
+    <main class="container">
+        
+        <div class="categories">
+            <h3>News</h3>
+            <a href="#"><%= i18n.t('categories.SPORT') %></a>
+            <a href="#"><%= i18n.t('categories.GAMING') %></a>
+            <a href="#"><%= i18n.t('categories.FINANCE') %></a>
+            <a href="#"><%= i18n.t('categories.BUSINESS') %></a>
+            <a href="#"><%= i18n.t('categories.ENTERTAINMENT') %></a>
+            <a href="#"><%= i18n.t('categories.SHOPPING') %></a>
+            <a href="#"><%= i18n.t('categories.TRAVEL') %></a>            
+        </div>
+
+        <% results.forEach(result => { %>
+            <div class="searchNewsItems">
+                <img src="<%= result.images %>" alt="<%= result.title %>">
+                <div class="searchText">
+                    <div class="sourceNHours">                        
+                        <p style="margin-right: 1rem;"><%= result.source %></p>
+                        <p><%= result.hoursSinceInserted %> h</p> 
+                    </div>                    
+                    <h5><%= result.title %></h5>
+                    <p><%= result.explanation %></p>
+                   
+                </div>
+            </div>
+        <% }) %>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

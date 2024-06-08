@@ -11,6 +11,7 @@ const i18nextMiddleware = require('i18next-http-middleware');
 const cookieParser = require('cookie-parser'); // Add cookie-parser
 const mysql = require('mysql');
 const axios = require('axios'); // Add axios for HTTP requests
+const moment = require('moment');
 
 
 
@@ -50,7 +51,7 @@ i18next
     backend: {
       loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json'
     },
-    debug: true, // Enable debug mode for i18next
+    debug: false, 
     detection: {
       order: ['cookie', 'querystring', 'header'],
       caches: ['cookie']
@@ -90,6 +91,25 @@ app.get('/', (req, res) => {
 
   res.render('home', { news: results, weather:weatherData,  i18n: res.locals });
 
+  });
+});
+
+// Search route
+app.get('/search', (req, res) => {
+  const searchTerm = req.query.q;
+  const query = 'SELECT title, explanation, images, category, source, inserted_at FROM news WHERE explanation LIKE ?';
+  connection.query(query, [`%${searchTerm}%`], (err, results) => {
+    if (err) {
+      console.error('Error fetching search results:', err);
+      return res.status(500).send('Server error');
+    }
+
+    const formattedResults = results.map(item => {
+      const hoursSinceInserted = moment().diff(moment(item.inserted_at), 'hours');
+      return { ...item, hoursSinceInserted };
+    });
+
+    res.render('search', { results: formattedResults, i18n: res.locals });
   });
 });
 

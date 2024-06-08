@@ -153,13 +153,11 @@ main {
 .smallerNewItems {
     position: relative;
     max-width: 90%;
-
 }
 .smallerNewItems img {
     width: 100%;
     height: auto;
     border-radius: 1%;
-
 }
 .Title {
     position: absolute;
@@ -169,4 +167,26 @@ main {
     color: white;
     padding: 5px 10px;
     border-radius: 3px;
+}
+.searchNewsItems {
+    position: relative;
+    max-width: 50%;
+}
+.searchNewsItems img {
+    width: 100%;
+    height: auto;
+    border-radius: 1%;
+}
+.searchText {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.301);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.sourceNHours {
+    display: flex;
+    flex-direction: row;
 }

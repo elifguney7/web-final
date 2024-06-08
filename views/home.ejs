@@ -46,8 +46,9 @@
 
                 <!-- Buttons on the right -->
                 <ul class="navbar-nav ms-auto">
+                
                 <li class="nav-item ">
-                    <a class="btn btn-link nav-link signup" role="button" href="#">
+                    <a class="btn btn-link nav-link signup" role="button" href="/login">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
                         <g stroke="#707070" stroke-width="1.9" fill="none">
                             <circle cx="32" cy="32" r="30.25"/>
@@ -108,10 +109,12 @@
                 <div class="carousel-inner">
                     <% news.forEach((item, index) => { %>
                         <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                            <img src="<%= item.images %>" class="d-block w-100" alt="<%= item.title %>">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5><%= item.title %></h5>
-                            </div>
+                            <a href="/news/<%= item.news_id %>">
+                                <img src="<%= item.images %>" class="d-block w-100" alt="<%= item.title %>">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5><%= item.title %></h5>
+                                </div>
+                            </a>
                         </div>
                     <% }) %>
                 </div>
@@ -124,6 +127,7 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+            
             <div class="smallerNews">
                 <div class="smallerNewItems">
                     <img src="<%= news[0].images %>" class="d-block w-100" alt="<%= news[0].title %>">
@@ -142,9 +146,10 @@
            
 
     </main>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
       
       <script>
         function changeLanguage(lang) {

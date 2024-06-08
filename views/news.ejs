@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= news.title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1><%= news.title %></h1>
+    <img src="<%= news.images %>" class="img-fluid" alt="<%= news.title %>">
+    <p><%= news.explanation %></p>
+
+    <div class="actions">
+        <% if (user) { %>
+            <form action="/news/<%= news.news_id %>/like" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-success">Like (<%= news.likes %>)</button>
+            </form>
+            <form action="/news/<%= news.news_id %>/dislike" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-danger">Dislike (<%= news.dislikes %>)</button>
+            </form>
+            <form action="/news/<%= news.news_id %>/share" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-primary">Share</button>
+            </form>
+        <% } else { %>
+            <p><a href="/login">Log in</a> to like, dislike, or share this news.</p>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>

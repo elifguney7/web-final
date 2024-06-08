@@ -168,6 +168,15 @@ main {
     padding: 5px 10px;
     border-radius: 3px;
 }
+.searchHeader{
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.searchCategories{
+    padding-bottom: 2rem ;
+}
 .searchNewsItems {
     position: relative;
     max-width: 50%;
@@ -177,16 +186,25 @@ main {
     height: auto;
     border-radius: 1%;
 }
+.searchNewsItems p {
+    margin-bottom: 5px;
+}
 .searchText {
     position: absolute;
     bottom: 0px;
     left: 0px;
+    right: 0px;
     background: rgba(0, 0, 0, 0.301);
     color: white;
-    padding: 5px 10px;
+    padding: 5px 15px;
     border-radius: 3px;
 }
 .sourceNHours {
     display: flex;
     flex-direction: row;
+}
+ .login {
+    display: flex;
+    margin: auto !important;
+    margin-top: 2rem;
 }

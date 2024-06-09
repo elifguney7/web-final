@@ -30,17 +30,30 @@ app.use(cookieParser());
 
 
 
-// Passport configuration
+// Middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(flash());
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport Configuration
 passport.use(
   new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
     const query = 'SELECT * FROM users WHERE email = ?';
     connection.query(query, [email], (err, results) => {
       if (err) throw err;
       if (results.length === 0) {
-        return done(null, false, { message: 'No user found' });
+        return done(null, false, { message: 'That email is not registered' });
       }
 
       const user = results[0];
+
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) throw err;
         if (isMatch) {
@@ -62,30 +75,6 @@ passport.deserializeUser((id, done) => {
   connection.query(query, [id], (err, results) => {
     done(err, results[0]);
   });
-});
-
-// Express session
-app.use(
-  session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-  })
-);
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Connect flash
-app.use(flash());
-
-// Global variables for flash messages
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
 });
 
 
@@ -241,34 +230,25 @@ app.post('/news/:id/share', (req, res) => {
   res.redirect(`/news/${newsId}`);
 });
 
+app.get('/login', (req, res) => res.render('login', { messages: req.flash() }));
+app.get('/register', (req, res) => res.render('register', { errors: [], name: '', email: '', password: '', password2: '', country: '', city: '' }));
 
-// Login Page
-app.get('/login', (req, res) => res.render('login'));
-
-// Register Page
-app.get('/register', (req, res) => res.render('register'));
-
-// Register Handle
 app.post('/register', (req, res) => {
   const { name, email, password, password2, country, city } = req.body;
   let errors = [];
 
-  // Check required fields
   if (!name || !email || !password || !password2 || !country || !city) {
     errors.push({ msg: 'Please fill in all fields' });
   }
 
-  // Check passwords match
   if (password !== password2) {
     errors.push({ msg: 'Passwords do not match' });
   }
 
-  // Check password length
   if (password.length < 8) {
     errors.push({ msg: 'Password should be at least 8 characters' });
   }
 
-  // Check password contains a number and a non-alphanumeric character
   if (!/\d/.test(password) || !/\W/.test(password)) {
     errors.push({ msg: 'Password should contain at least one number and one non-alphanumeric character' });
   }
@@ -284,7 +264,6 @@ app.post('/register', (req, res) => {
       city
     });
   } else {
-    // Validation passed
     const query = 'SELECT * FROM users WHERE email = ?';
     connection.query(query, [email], (err, results) => {
       if (err) throw err;
@@ -302,12 +281,10 @@ app.post('/register', (req, res) => {
       } else {
         const newUser = { name, email, password, country, city };
 
-        // Hash password
         bcrypt.genSalt(10, (err, salt) => bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
 
-          // Save user
           const insertQuery = 'INSERT INTO users SET ?';
           connection.query(insertQuery, newUser, (err, results) => {
             if (err) throw err;
@@ -320,8 +297,6 @@ app.post('/register', (req, res) => {
   }
 });
 
-
-// Login Handle
 app.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/',
@@ -330,7 +305,6 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-// Logout Handle
 app.get('/logout', (req, res) => {
   req.logout(() => {
     req.flash('success_msg', 'You are logged out');

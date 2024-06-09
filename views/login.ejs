@@ -8,7 +8,13 @@
 <body>
 <div class="container">
     <h2>Login</h2>
-
+    <% if (messages.error && messages.error.length > 0) { %>
+        <div class="alert alert-danger">
+            <% messages.error.forEach(function(error) { %>
+                <p><%= error %></p>
+            <% }) %>
+        </div>
+    <% } %>
     <form action="/login" method="POST">
         <div class="form-group">
             <label for="email">Email:</label>
@@ -21,8 +27,6 @@
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
     <a class="btn btn-danger" role="button" href="/register">Register</a>
-
-
 </div>
 </body>
 </html>

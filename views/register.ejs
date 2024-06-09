@@ -8,7 +8,13 @@
 <body>
 <div class="container">
     <h2>Register</h2>
-
+    <% if (errors.length > 0) { %>
+        <div class="alert alert-danger">
+            <% errors.forEach(function(error) { %>
+                <p><%= error.msg %></p>
+            <% }) %>
+        </div>
+    <% } %>
     <form action="/register" method="POST">
         <div class="form-group">
             <label for="name">Name:</label>

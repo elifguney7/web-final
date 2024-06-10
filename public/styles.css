@@ -203,8 +203,28 @@ main {
     display: flex;
     flex-direction: row;
 }
- .login {
+.login {
     display: flex;
     margin: auto !important;
     margin-top: 2rem;
+}
+.newsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.dteailButtonContainer {
+    display: flex;
+    flex-direction: column;
+    padding-right: 1rem;
+}
+.detailbtn {
+    max-width: 50px;
+    max-height: 50px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    outline: 1px solid grey;
+    border-radius: 10px;
 }

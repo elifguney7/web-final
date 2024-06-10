@@ -179,11 +179,14 @@ main {
 }
 .searchNewsItems {
     position: relative;
-    max-width: 50%;
+    width: 375px; 
+    height: 250px;     
+    padding: 10px;
 }
 .searchNewsItems img {
     width: 100%;
     height: auto;
+    max-height: 150px;
     border-radius: 1%;
 }
 .searchNewsItems p {
@@ -191,13 +194,13 @@ main {
 }
 .searchText {
     position: absolute;
-    bottom: 0px;
     left: 0px;
     right: 0px;
-    background: rgba(0, 0, 0, 0.301);
+    background: rgba(0, 0, 0, 0.501);
     color: white;
     padding: 5px 15px;
     border-radius: 3px;
+    margin: 0 10px 0 10px;
 }
 .sourceNHours {
     display: flex;
@@ -241,7 +244,10 @@ main {
     white-space: normal; /* Allow news titles to wrap to multiple lines */
     word-wrap: break-word;
 }
-
+.horizontal {
+    display: flex;
+    flex-direction: row;
+}
 
 
 /* Mobile view */
@@ -272,12 +278,18 @@ main {
         flex-direction: column-reverse;
         align-items: center;
     }
+    .newsContent p {
+        padding-top: 1rem;
+    }
     
     .dteailButtonContainer {
         display: flex;
         flex-direction: row;
         padding-right: 0;
-        padding-top: 2rem;
+        padding-top: 0.25rem;
+        padding-bottom: 1rem;
+        justify-content: space-between;
+        width: 70%;
     }
     .smallerNews {
         display: none;
@@ -298,6 +310,34 @@ main {
         display: flex;
         justify-content: center;
         padding-top: 1rem;
+    }
+    .searchNewsItems {
+        position: relative;
+        max-width: 70%;
+    }
+    .searchNewsItems img {
+        width: 100%;
+        height: auto;
+        border-radius: 1%;
+    }
+    .searchNewsItems p {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+    .searchNewsItems h5 {
+        font-size: 16px;
+    }
+    .searchCategories h5 {
+        display: none;
+    }
+    .searchCategories {
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-bottom: 2rem;
+    }
+    .horizontal {
+        display: flex;
+        flex-direction: column;
     }
     
     

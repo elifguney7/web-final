@@ -137,51 +137,82 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+
 // app.get('/', (req, res) => {
-//   const query = 'SELECT title, explanation, images, news_id FROM news';
-//   connection.query(query, async (err, results) => {
+//   const newsQuery = 'SELECT title, explanation, images, news_id FROM news';
+//   const topNewsQuery = 'SELECT title, news_id, source, inserted_at FROM news ORDER BY likes DESC LIMIT 3';
+
+//   connection.query(newsQuery, async (err, newsResults) => {
 //     if (err) {
 //       console.error('Error fetching news data:', err);
 //       return res.status(500).send('Server error');
 //     }
 
-//   // Fetch weather data for a specific city
-//   const weatherData = await getWeatherData('Izmir');
+//     connection.query(topNewsQuery, async (err, topNewsResults) => {
+//       if (err) {
+//         console.error('Error fetching top news data:', err);
+//         return res.status(500).send('Server error');
+//       }
 
-//   res.render('home', { news: results, weather:weatherData,  i18n: res.locals, user: req.user  });
+//       const formattedResults = topNewsResults.map(item => {
+//         const hoursSinceInserted = moment().diff(moment(item.inserted_at), 'hours');
+//         return { ...item, hoursSinceInserted };
+//       });
 
+//       // Fetch weather data for a specific city
+//       const weatherData = await getWeatherData('Izmir');
+
+//       res.render('home', { news: newsResults, topNews: formattedResults, weather: weatherData, i18n: res.locals, user: req.user });
+//     });
 //   });
 // });
 
-
 app.get('/', (req, res) => {
-  const newsQuery = 'SELECT title, explanation, images, news_id FROM news';
+  const category = req.query.category;
+  let newsQuery = 'SELECT title, explanation, images, news_id FROM news';
   const topNewsQuery = 'SELECT title, news_id, source, inserted_at FROM news ORDER BY likes DESC LIMIT 3';
+  
+  if (category) {
+      newsQuery += ' WHERE category = ?';
+  }
 
-  connection.query(newsQuery, async (err, newsResults) => {
-    if (err) {
-      console.error('Error fetching news data:', err);
-      return res.status(500).send('Server error');
-    }
-
-    connection.query(topNewsQuery, async (err, topNewsResults) => {
+  connection.query(newsQuery, category ? [category] : [], (err, newsResults) => {
       if (err) {
-        console.error('Error fetching top news data:', err);
-        return res.status(500).send('Server error');
+          console.error('Error fetching news data:', err);
+          return res.status(500).send('Server error');
       }
 
-      const formattedResults = topNewsResults.map(item => {
-        const hoursSinceInserted = moment().diff(moment(item.inserted_at), 'hours');
-        return { ...item, hoursSinceInserted };
+      connection.query(topNewsQuery, (err, topNewsResults) => {
+          if (err) {
+              console.error('Error fetching top news data:', err);
+              return res.status(500).send('Server error');
+          }
+
+          const formattedResults = topNewsResults.map(item => {
+              const hoursSinceInserted = moment().diff(moment(item.inserted_at), 'hours');
+              return { ...item, hoursSinceInserted };
+          });
+
+          // Fetch weather data for a specific city
+          getWeatherData('Izmir').then(weatherData => {
+              res.render('home', { 
+                  news: newsResults, 
+                  topNews: formattedResults, 
+                  weather: weatherData, 
+                  i18n: res.locals, 
+                  user: req.user,
+                  noNewsFound: newsResults.length === 0
+              });
+          }).catch(weatherError => {
+              console.error('Error fetching weather data:', weatherError);
+              res.status(500).send('Server error');
+          });
       });
-
-      // Fetch weather data for a specific city
-      const weatherData = await getWeatherData('Izmir');
-
-      res.render('home', { news: newsResults, topNews: formattedResults, weather: weatherData, i18n: res.locals, user: req.user });
-    });
   });
 });
+
+
+
 
 app.post('/toggle-notifications', (req, res) => {
   if (!req.isAuthenticated()) {
@@ -383,57 +414,12 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-app.get('/logout', (req, res) => {
+app.post('/logout', (req, res) => {
   req.logout(() => {
     req.flash('success_msg', 'You are logged out');
-    res.redirect('/login');
+    res.redirect('/');
   });
 });
-
-// app.get('/interests', (req, res) => {
-//   if (!req.isAuthenticated()) {
-//     req.flash('error_msg', 'Please log in to manage your interests.');
-//     return res.redirect('/login');
-//   }
-
-//   const user = req.user;
-//   if (!user.interests) {
-//     user.interests = '';
-//   }
-
-//   res.render('interests', { user, messages: req.flash() });
-// });
-
-// app.post('/interests', (req, res) => {
-//   if (!req.isAuthenticated()) {
-//     req.flash('error_msg', 'Please log in to manage your interests.');
-//     return res.redirect('/login');
-//   }
-
-//   const userId = req.user.id;
-//   let interests = req.body.interests;
-
-//   console.log('Received interests:', interests);
-
-//   if (!Array.isArray(interests)) {
-//     interests = [interests];
-//   }
-
-//   const interestsString = interests.join(',');
-
-//   console.log('Interests to be saved:', interestsString);
-
-//   const query = 'UPDATE users SET interests = ? WHERE id = ?';
-//   connection.query(query, [interestsString, userId], (err, results) => {
-//     if (err) {
-//       console.error('Error updating interests:', err);
-//       return res.status(500).send('Server error');
-//     }
-//     console.log('Interests updated successfully in DB:', results);
-//     req.flash('success_msg', 'Interests updated successfully.');
-//     res.redirect('/');
-//   });
-// });
 
 
 app.get('/interests', (req, res) => {

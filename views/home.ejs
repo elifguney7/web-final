@@ -46,20 +46,21 @@
 
                 <!-- Buttons on the right -->
                 <ul class="navbar-nav ms-auto">
-                
-                <li class="nav-item ">
-                    <a class="btn btn-link nav-link signup" role="button" href="/login">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-                        <g stroke="#707070" stroke-width="1.9" fill="none">
-                            <circle cx="32" cy="32" r="30.25"/>
-                            <g transform="translate(8.8 5.61) scale(1.1)">
-                            <circle cx="20" cy="16" r="7"/>
-                            <path d="M30 35h10m-5-5v10M30.833 32.09A11 11 0 009 34"/>
+                <% if (!user) { %>
+                    <li class="nav-item">
+                        <a class="btn btn-link nav-link signup" role="button" href="/login">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+                            <g stroke="#707070" stroke-width="1.9" fill="none">
+                                <circle cx="32" cy="32" r="30.25"/>
+                                <g transform="translate(8.8 5.61) scale(1.1)">
+                                <circle cx="20" cy="16" r="7"/>
+                                <path d="M30 35h10m-5-5v10M30.833 32.09A11 11 0 009 34"/>
+                                </g>
                             </g>
-                        </g>
-                        </svg>
-                    </a>
-                </li>
+                            </svg>
+                        </a>
+                    </li>
+                <% } %>
                 <li class="nav-item dropdown">
                     <a id="navbarDropdownMenuLink" class="notification-bell-container nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg class="bell-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" width="28" height="28">
@@ -130,16 +131,20 @@
             
             <div class="smallerNews">
                 <div class="smallerNewItems">
-                    <img src="<%= news[0].images %>" class="d-block w-100" alt="<%= news[0].title %>">
-                    <div class="Title">
-                        <h5><%= news[0].title %></h5>
-                    </div>
+                    <a href="/news/1">
+                        <img src="<%= news[0].images %>" class="d-block w-100" alt="<%= news[0].title %>">
+                        <div class="Title">
+                            <h5><%= news[0].title %></h5>
+                        </div>
+                    </a>
                 </div>
                 <div class="smallerNewItems">
-                    <img src="<%= news[1].images %>" class="d-block w-100" alt="<%= news[1].title %>">
-                    <div class="Title">
-                        <h5><%= news[1].title %></h5>
-                    </div>
+                    <a href="/news/2">
+                        <img src="<%= news[1].images %>" class="d-block w-100" alt="<%= news[1].title %>">
+                        <div class="Title">
+                            <h5><%= news[1].title %></h5>
+                        </div>
+                    </a>
                 </div>                
             </div>
         </div>

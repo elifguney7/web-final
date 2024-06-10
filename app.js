@@ -148,7 +148,7 @@ app.get('/', (req, res) => {
   // Fetch weather data for a specific city
   const weatherData = await getWeatherData('Izmir');
 
-  res.render('home', { news: results, weather:weatherData,  i18n: res.locals });
+  res.render('home', { news: results, weather:weatherData,  i18n: res.locals, user: req.user  });
 
   });
 });
@@ -180,24 +180,6 @@ app.post('/change-lang', (req, res) => {
   res.cookie('i18next', lang); // Set the cookie for language
   res.sendStatus(200); // Respond with success
 });
-
-// app.get('/news/:id', (req, res) => {
-//   const newsId = req.params.id;
-//   const query = 'SELECT * FROM news WHERE news_id = ?';
-  
-//   connection.query(query, [newsId], (err, results) => {
-//     if (err) {
-//       console.error('Error fetching news details:', err);
-//       return res.status(500).send('Server error');
-//     }
-
-//     if (results.length === 0) {
-//       return res.status(404).send('News not found');
-//     }
-
-//     res.render('news', { news: results[0], user: req.user });
-//   });
-// });
 
 
 app.get('/news/:id', (req, res) => {

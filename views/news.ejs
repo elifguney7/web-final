@@ -57,29 +57,32 @@
             <% } %>
         </div>
         <div class="newsContent">
-            <h1><%= news.title %></h1>
+            <h3><%= news.title %></h3>
             <img src="<%= news.images %>" class="img-fluid" alt="<%= news.title %>">
             <p><%= news.explanation %></p>
+            <p><%= news.source %></p>
         </div>
     </div>
 
-    <% if (relatedNews.length > 0) { %>
-        <div class="relatedNews">
-            <h2>Related News</h2>
-            <ul>
-                <% relatedNews.forEach(item => { %>
-                    <li>
-                        <a href="/news/<%= item.news_id %>">
-                            <img src="<%= item.images %>" alt="<%= item.title %>" class="img-fluid">
-                            <h3><%= item.title %></h3>
-                        </a>
-                        <p><%= item.explanation %></p>
-                    </li>
-                <% }) %>
-            </ul>
-        </div>
-    <% } %>
+    <div class="padding-bottom">
 
+        <% if (relatedNews.length > 0) { %>
+            <h2>You may also like</h2>
+            <div class="searchNewsItems">           
+                <% relatedNews.forEach(item => { %>                    
+                    <a href="/news/<%= item.news_id %>">
+                        <img src="<%= item.images %>" alt="<%= item.title %>" class="img-fluid">
+                        <div class="searchText">
+                            <div class="sourceNHours">                        
+                                <p style="margin-right: 1rem;"><%= item.source %></p>
+                            </div>                    
+                            <h5><%= item.title %></h5>
+                        </div>
+                    </a>   
+                <% }) %>            
+            </div>
+        <% } %>
+    </div>
 </main>
 <script>
    function shareOnTwitter(title, image) {

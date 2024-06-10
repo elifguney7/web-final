@@ -50,7 +50,7 @@ main {
 .signup svg {
     width: 36px; /* or other appropriate size */
     height: 36px;
-  }
+}
 .searchbar-container {
     min-width: 650px;
     min-height: 45px;
@@ -212,11 +212,12 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
 }
 .dteailButtonContainer {
     display: flex;
     flex-direction: column;
-    padding-right: 1rem;
+    padding-right: 2rem;
 }
 .detailbtn {
     max-width: 50px;
@@ -228,4 +229,6 @@ main {
     outline: 1px solid grey;
     border-radius: 10px;
 }
-
+.padding-bottom {
+    padding-bottom: 2rem;
+}

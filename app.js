@@ -225,8 +225,8 @@ app.post('/news/:id/dislike', (req, res) => {
 
 app.post('/news/:id/share', (req, res) => {
   const newsId = req.params.id;
-  // Implement sharing functionality here
-  // For example, generate a shareable link and display it to the user
+  const shareUrl = `${req.protocol}://${req.get('host')}/news/${newsId}`;
+  req.flash('shareUrl', shareUrl);
   res.redirect(`/news/${newsId}`);
 });
 

@@ -137,21 +137,71 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+// app.get('/', (req, res) => {
+//   const query = 'SELECT title, explanation, images, news_id FROM news';
+//   connection.query(query, async (err, results) => {
+//     if (err) {
+//       console.error('Error fetching news data:', err);
+//       return res.status(500).send('Server error');
+//     }
+
+//   // Fetch weather data for a specific city
+//   const weatherData = await getWeatherData('Izmir');
+
+//   res.render('home', { news: results, weather:weatherData,  i18n: res.locals, user: req.user  });
+
+//   });
+// });
+
+
 app.get('/', (req, res) => {
-  const query = 'SELECT title, explanation, images, news_id FROM news';
-  connection.query(query, async (err, results) => {
+  const newsQuery = 'SELECT title, explanation, images, news_id FROM news';
+  const topNewsQuery = 'SELECT title, news_id, source, inserted_at FROM news ORDER BY likes DESC LIMIT 3';
+
+  connection.query(newsQuery, async (err, newsResults) => {
     if (err) {
       console.error('Error fetching news data:', err);
       return res.status(500).send('Server error');
     }
 
-  // Fetch weather data for a specific city
-  const weatherData = await getWeatherData('Izmir');
+    connection.query(topNewsQuery, async (err, topNewsResults) => {
+      if (err) {
+        console.error('Error fetching top news data:', err);
+        return res.status(500).send('Server error');
+      }
 
-  res.render('home', { news: results, weather:weatherData,  i18n: res.locals, user: req.user  });
+      const formattedResults = topNewsResults.map(item => {
+        const hoursSinceInserted = moment().diff(moment(item.inserted_at), 'hours');
+        return { ...item, hoursSinceInserted };
+      });
 
+      // Fetch weather data for a specific city
+      const weatherData = await getWeatherData('Izmir');
+
+      res.render('home', { news: newsResults, topNews: formattedResults, weather: weatherData, i18n: res.locals, user: req.user });
+    });
   });
 });
+
+app.post('/toggle-notifications', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  const userId = req.user.id;
+  const notificationsEnabled = req.body.notificationsEnabled === 'true';
+
+  const query = 'UPDATE users SET notifications_enabled = ? WHERE id = ?';
+  connection.query(query, [notificationsEnabled, userId], (err, results) => {
+    if (err) {
+      console.error('Error updating notification preference:', err);
+      return res.status(500).send('Server error');
+    }
+    res.redirect('/');
+  });
+});
+
+
 
 // Search route
 app.get('/search', (req, res) => {

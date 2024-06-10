@@ -232,3 +232,12 @@ main {
 .padding-bottom {
     padding-bottom: 2rem;
 }
+.dropdown-menu {
+    width: 300px;
+}
+
+/* Style for the news items inside the dropdown */
+.dropdown-item {
+    white-space: normal; /* Allow news titles to wrap to multiple lines */
+    word-wrap: break-word;
+}

@@ -117,6 +117,10 @@
         </nav>
     </header>  
     <main>
+        <div class="weatherMobile">
+            <p><%= weather.location.name %> / </p>
+            <p><%= weather.current.temp_c %> <span>&#8451;</span></p>
+        </div>
         <div class="categories">
             <div class="weather">
                 <p><%= weather.location.name %> / </p>
@@ -138,8 +142,12 @@
                         <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
                             <a href="/news/<%= item.news_id %>">
                                 <img src="<%= item.images %>" class="d-block w-100" alt="<%= item.title %>">
-                                <div class="carousel-caption d-none d-md-block">
+                                <div class="searchText carousel-caption d-none d-md-block">
                                     <h5><%= item.title %></h5>
+                                </div>
+                                
+                                <div class="searchText carousel-caption mobile">
+                                    <h7><%= item.title %></h7>
                                 </div>
                             </a>
                         </div>

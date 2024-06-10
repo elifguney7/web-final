@@ -130,10 +130,8 @@ main {
     display: flex;
     flex-direction: row;
 }
-.newsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.weatherMobile {
+    display: none;
 }
 .carousel {
     min-width: 65%;
@@ -143,6 +141,9 @@ main {
     border-radius: 1%;
     max-height: 100%;
     object-fit: contain;
+}
+.mobile {
+    display: none;
 }
 .smallerNews {
     display: flex;
@@ -161,8 +162,7 @@ main {
 }
 .Title {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    bottom: 0px;
     background: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 5px 10px;
@@ -240,4 +240,65 @@ main {
 .dropdown-item {
     white-space: normal; /* Allow news titles to wrap to multiple lines */
     word-wrap: break-word;
+}
+
+
+
+/* Mobile view */
+@media screen and (max-width: 576px) { 
+    main {
+        padding-right: 5%;
+        padding-left: 5%;
+    }
+    .navbar {
+        padding: 3% 5%;
+    }
+    .categories {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0 10px 0 10px;
+        flex-wrap: wrap;    
+    }
+    .categories a {
+        margin-right: 1rem;
+    }
+    .carousel {
+        padding-top: 2rem;
+        max-width: 100%;
+    }
+    .newsContainer {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    
+    .dteailButtonContainer {
+        display: flex;
+        flex-direction: row;
+        padding-right: 0;
+        padding-top: 2rem;
+    }
+    .smallerNews {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 2rem;
+    }
+    .mobile {
+        display: flex;
+    }
+    .mobile h7 {
+        font-weight: 700;
+    }
+    .weather {
+        display: none;
+    }
+    .weatherMobile {
+        display: flex;
+        justify-content: center;
+        padding-top: 1rem;
+    }
+    
+    
 }

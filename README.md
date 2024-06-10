@@ -16,3 +16,6 @@ This is a clone of the MSN web application built using Node.js, Express, MySQL, 
 - views/ - Contains EJS templates
 - public/ - Contains static assets (CSS, JS, images)
 - models/ - Contains database models
+
+## Video Explanation
+https://drive.google.com/file/d/14z5doDch5p4V7BtWUgGm0OwPlU4XgamV/view?usp=sharing

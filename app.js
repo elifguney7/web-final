@@ -31,7 +31,7 @@ app.use(cookieParser());
 
 
 // Middleware
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(session({
   secret: 'secret',
@@ -181,20 +181,66 @@ app.post('/change-lang', (req, res) => {
   res.sendStatus(200); // Respond with success
 });
 
+// app.get('/news/:id', (req, res) => {
+//   const newsId = req.params.id;
+//   const query = 'SELECT * FROM news WHERE news_id = ?';
+  
+//   connection.query(query, [newsId], (err, results) => {
+//     if (err) {
+//       console.error('Error fetching news details:', err);
+//       return res.status(500).send('Server error');
+//     }
+
+//     if (results.length === 0) {
+//       return res.status(404).send('News not found');
+//     }
+
+//     res.render('news', { news: results[0], user: req.user });
+//   });
+// });
+
+
 app.get('/news/:id', (req, res) => {
   const newsId = req.params.id;
-  const query = 'SELECT * FROM news WHERE news_id = ?';
-  connection.query(query, [newsId], (err, results) => {
+
+  // Query to get the selected news article
+  const newsQuery = 'SELECT * FROM news WHERE news_id = ?';
+
+  // Query to get related news articles based on user interests
+  const relatedNewsQuery = `
+    SELECT * FROM news
+    WHERE category IN (?) AND news_id != ?
+    ORDER BY inserted_at DESC
+    LIMIT 5
+  `;
+
+  connection.query(newsQuery, [newsId], (err, newsResults) => {
     if (err) {
       console.error('Error fetching news details:', err);
       return res.status(500).send('Server error');
     }
 
-    if (results.length === 0) {
+    if (newsResults.length === 0) {
       return res.status(404).send('News not found');
     }
 
-    res.render('news', { news: results[0], user: req.user });
+    const news = newsResults[0];
+
+    // Get user interests if logged in
+    if (req.isAuthenticated()) {
+      const interests = req.user.interests ? req.user.interests.split(',') : [];
+
+      connection.query(relatedNewsQuery, [interests, newsId], (err, relatedNewsResults) => {
+        if (err) {
+          console.error('Error fetching related news:', err);
+          return res.status(500).send('Server error');
+        }
+
+        res.render('news', { news, user: req.user, relatedNews: relatedNewsResults });
+      });
+    } else {
+      res.render('news', { news, user: null, relatedNews: [] });
+    }
   });
 });
 
@@ -311,6 +357,100 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
   });
 });
+
+// app.get('/interests', (req, res) => {
+//   if (!req.isAuthenticated()) {
+//     req.flash('error_msg', 'Please log in to manage your interests.');
+//     return res.redirect('/login');
+//   }
+
+//   const user = req.user;
+//   if (!user.interests) {
+//     user.interests = '';
+//   }
+
+//   res.render('interests', { user, messages: req.flash() });
+// });
+
+// app.post('/interests', (req, res) => {
+//   if (!req.isAuthenticated()) {
+//     req.flash('error_msg', 'Please log in to manage your interests.');
+//     return res.redirect('/login');
+//   }
+
+//   const userId = req.user.id;
+//   let interests = req.body.interests;
+
+//   console.log('Received interests:', interests);
+
+//   if (!Array.isArray(interests)) {
+//     interests = [interests];
+//   }
+
+//   const interestsString = interests.join(',');
+
+//   console.log('Interests to be saved:', interestsString);
+
+//   const query = 'UPDATE users SET interests = ? WHERE id = ?';
+//   connection.query(query, [interestsString, userId], (err, results) => {
+//     if (err) {
+//       console.error('Error updating interests:', err);
+//       return res.status(500).send('Server error');
+//     }
+//     console.log('Interests updated successfully in DB:', results);
+//     req.flash('success_msg', 'Interests updated successfully.');
+//     res.redirect('/');
+//   });
+// });
+
+
+app.get('/interests', (req, res) => {
+  if (!req.isAuthenticated()) {
+    req.flash('error_msg', 'Please log in to manage your interests.');
+    return res.redirect('/login');
+  }
+
+  const user = req.user;
+  if (!user.interests) {
+    user.interests = '';
+  }
+
+  res.render('interests', { user, messages: req.flash() });
+});
+
+app.post('/interests', (req, res) => {
+  if (!req.isAuthenticated()) {
+    req.flash('error_msg', 'Please log in to manage your interests.');
+    return res.redirect('/login');
+  }
+
+  const userId = req.user.id;
+  let interests = req.body.interests;
+
+  console.log('Raw interests from form:', interests);
+
+  if (!Array.isArray(interests)) {
+    interests = [interests];
+  }
+
+  const interestsString = interests.join(',');
+
+  console.log('Interests to be saved:', interestsString);
+
+  const query = 'UPDATE users SET interests = ? WHERE id = ?';
+  connection.query(query, [interestsString, userId], (err, results) => {
+    if (err) {
+      console.error('Error updating interests:', err);
+      return res.status(500).send('Server error');
+    }
+    console.log('Interests updated successfully in DB:', results);
+    req.flash('success_msg', 'Interests updated successfully.');
+    res.redirect('/');
+  });
+});
+
+
+
 
 
 app.listen(PORT, (error) =>{ 
